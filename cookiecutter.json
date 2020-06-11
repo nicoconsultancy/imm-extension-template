@@ -1,0 +1,8 @@
+{
+  "package_name": "imm_extension_name",
+  "project_name": "My New Extension",
+  "vendor_name": "IM&M",
+  "support_email": "support@immsuite.com",
+  "support_website": "https://www.immsuite.com",
+  "version": "1.0.0"
+}
