@@ -1,0 +1,26 @@
+[imm-extension]
+name = "Extension Name"
+version = "1.0.0"
+description = """
+This is the description of your extension that will appear in the Extension Store.
+"""
+vendor = "IM&M"
+url = "https://www.immsuite.com"
+support = "support@immsuite.com"
+
+location = "{{cookiecutter.package_name}}.extension:extension"
+include-files = [
+    # If your extension does not have any templates or static files, you can remove this
+    "templates/**/*.html",
+    "static/**/*",
+]
+
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py38']
+
+
+[build-system]
+requires = ["setuptools", "wheel", "cython", "toml"]

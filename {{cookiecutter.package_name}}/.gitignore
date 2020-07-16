@@ -1,0 +1,15 @@
+.idea
+.vscode
+
+build/
+dist/
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.c
+*.so
+
+*.dist-info
+*.egg-info
+pip-wheel-metadata
