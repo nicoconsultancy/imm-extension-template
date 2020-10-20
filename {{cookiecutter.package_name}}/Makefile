@@ -26,3 +26,4 @@ open:
 	xdg-open http://localhost:8000/api/extension/$(PACKAGE)/index
 
 .PHONY: install uninstall test coverage open
+.DEFAULT_GOAL := run

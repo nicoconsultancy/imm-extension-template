@@ -1,9 +1,6 @@
 from django.shortcuts import render
-from imm.core.extension import Extension
-
-extension = Extension()
-
+from .const import extension
 
 @extension.view(path='/')
 def index(request):
-    return render(request, '{{cookiecutter.package_name}}/hello_world.html')
+    return render(request, '{{cookiecutter.package_name}}/index.html')
