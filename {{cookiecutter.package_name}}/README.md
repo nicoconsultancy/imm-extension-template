@@ -10,11 +10,31 @@
 
 To install this extension into your development environment run:
 
-```
-~/.imm/bin/pip install -r requirements.txt
+```bash
+make install
 ```
 
 ## Details
+
+### Testing
+
+```bash
+make test
+```
+
+### Viewing
+
+While developing, assuming the extension is using views (and the default view is named `index.html`), you can run the following to quickly open the extension in your default browser:
+
+```bash
+make open
+```
+
+This is setup for linux by default. In order to make this work for Mac, change line line 26 in the `Makefile` to the following:
+
+```bash
+    open http://localhost:8000/api/extension/$(PACKAGE)/index
+```
 
 ### Operation
 
