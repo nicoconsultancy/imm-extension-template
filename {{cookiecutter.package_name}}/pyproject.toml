@@ -1,6 +1,6 @@
 [imm-extension]
 name = "Extension Name"
-version = "1.0.0"
+version = "master"
 description = """
 This is the description of your extension that will appear in the Extension Store.
 """
