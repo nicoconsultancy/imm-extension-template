@@ -25,5 +25,8 @@ coverage:
 open:
 	xdg-open http://localhost:8000/api/extension/$(PACKAGE)/index
 
-.PHONY: install uninstall test coverage open
+update-template:
+	cruft update
+
+.PHONY: install uninstall test coverage open update-template
 .DEFAULT_GOAL := install
