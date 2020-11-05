@@ -29,7 +29,7 @@ $ make update-template
 
 and commit the changes. 
 
-#### Updating an existing extension created with `cookiecutter`
+### Updating an existing extension created with `cookiecutter`
 
 There are a few steps to upgrade an older extension created using `cookiecutter`. First add these lines to your `pyproject.toml`:
 
