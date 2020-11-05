@@ -6,7 +6,7 @@
 
 *TODO: brief description of what this extension does*
 
-## Steup
+## Setup
 
 ### Prerequisites
 
