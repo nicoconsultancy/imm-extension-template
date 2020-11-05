@@ -1,5 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel", "cython", "toml"]
+
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+target-version = ['py38']
+
+
+[tool.cruft]
+skip = ["{{cookiecutter.package_name}}", "README.md", "CHANGELOG.md"]
+
+
 [imm-extension]
-name = "Extension Name"
+name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
 version = "master"
 description = """
 This is the description of your extension that will appear in the Extension Store.
@@ -14,13 +28,3 @@ include-files = [
     "templates/**/*.html",
     "static/**/*",
 ]
-
-
-[tool.black]
-line-length = 120
-skip-string-normalization = true
-target-version = ['py38']
-
-
-[build-system]
-requires = ["setuptools", "wheel", "cython", "toml"]
