@@ -21,13 +21,11 @@ Examples of valid extension names are: `imm_santander_bikes`, `imm_default_class
 
 ### Updating an extisting extension from this template
 
-If you created the extension using `cruft`, then you need only run:
+If you created the extension using `cruft` then updating is as simple as running:
 
 ```bash
 $ make update-template
 ```
-
-and commit the changes. 
 
 ### Updating an existing extension created with `cookiecutter`
 
