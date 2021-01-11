@@ -1,3 +1,3 @@
-from imm.core.extension import Extension
+from imm.extension import Extension
 
 extension = Extension(name="{{cookiecutter.package_name}}")
