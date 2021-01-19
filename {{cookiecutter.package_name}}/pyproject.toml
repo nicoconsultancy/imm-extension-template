@@ -1,3 +1,21 @@
+[imm-extension]
+name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
+version = "master"
+extension = "{{cookiecutter.package_name|replace('_', ' ')}}"
+description = """
+This is the description of your extension that will appear in the Extension Store.
+"""
+vendor = "IM&M"
+url = "https://www.immsuite.com"
+support = "support@immsuite.com"
+
+location = "{{cookiecutter.package_name}}.extension:extension"
+include-files = [
+    # If your extension does not have any templates or static files, you can remove this
+    "templates/**/*.html",
+    "static/**/*",
+]
+
 [build-system]
 requires = ["setuptools", "wheel", "cython", "toml"]
 
@@ -11,20 +29,19 @@ target-version = ['py38']
 [tool.cruft]
 skip = ["{{cookiecutter.package_name}}", "README.md", "CHANGELOG.md"]
 
+[tool.isort]
+profile = "black"
+known_first_party = "imm_test"
+known_django = "django"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+line_length = 125
+multi_line_output = 3
+force_single_line = "true"
 
-[imm-extension]
-name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
-version = "master"
-description = """
-This is the description of your extension that will appear in the Extension Store.
-"""
-vendor = "IM&M"
-url = "https://www.immsuite.com"
-support = "support@immsuite.com"
 
-location = "{{cookiecutter.package_name}}.extension:extension"
-include-files = [
-    # If your extension does not have any templates or static files, you can remove this
-    "templates/**/*.html",
-    "static/**/*",
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --nomigrations --ds=imm.settings --disable-warnings"
+testpaths = [
+    "tests",
 ]
