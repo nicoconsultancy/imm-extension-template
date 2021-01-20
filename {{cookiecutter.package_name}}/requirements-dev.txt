@@ -1,8 +1,0 @@
-setuptools
-wheel
-cython
-toml
-twine
-pytest
-pytest-django
-requests
