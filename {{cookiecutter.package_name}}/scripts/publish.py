@@ -11,9 +11,12 @@ pyproject = toml.load(open("pyproject.toml", "r"))
 metadata = pyproject.get("imm-extension", {})
 
 
-base_url = os.environ.get("EXTENSION_STORE_URL") or "https://store.immsuite.com"
+base_url = os.environ.get("IMM_STORE_URL")
 
-headers = {"Content-Type": "application/json", "Authorization": "Basic {}".format(os.environ.get("AUTH_TOKEN"))}
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Basic {}".format(os.environ.get("IMM_STORE_TOKEN")),
+}
 extension_data = {
     "title": metadata.get("name"),
     "version": metadata.get("version"),
@@ -30,5 +33,5 @@ response = requests.post(
 )
 if not response.ok:
     if response.status_code == 401 or response.status_code == 403:
-        raise HTTPError("Unauthorised, check AUTH_TOKEN for extension")
+        raise HTTPError("Unauthorised, check IMM_STORE_TOKEN for extension")
     raise HTTPError(f"Got response {response.status_code} from extension store")

@@ -33,16 +33,13 @@ wheel:
 	! (unzip -Z1 dist/*.whl | grep .py$$)
 	! (unzip -Z1 dist/*.whl | grep .c$$)
 
-store-release:
-	$(PYTHON) scripts/publish.py
-
 prepare-release: bump-version wheel
 	$(call notice,The release has been prepared)
 
-publish-release: store-release
+publish-release:
 	@test $(version) || ( echo "Missing version argument"; exit 1 )
 	$(call notice,Uploading the Python packages to the repository)
-	# ~/.imm/bin/twine upload --repository-url https://pip.immsuite.cloud dist/$(PACKAGE)-$(version)-*.whl
+	~/.imm/bin/twine upload --repository-url https://pip.immsuite.cloud dist/$(PACKAGE)-$(version)-*.whl && $(PYTHON) scripts/publish.py
 
 	$(call notice,Uploading the metadata to the extension store)
 	curl --location "https://store.immsuite.com/api/v1/extensions/store/$(PACKAGE)/upload" -u "user:pass" --form "file=@pyproject.toml"
