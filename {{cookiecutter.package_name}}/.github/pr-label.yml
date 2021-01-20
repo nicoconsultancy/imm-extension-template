@@ -1,0 +1,6 @@
+{% raw %}
+enhancement: ['feature/*', 'feat/*']
+bug: fix/*
+chore: ["chore/*", "build/*"]
+fixed-branch: fixed-branch-name
+{% endraw %}
