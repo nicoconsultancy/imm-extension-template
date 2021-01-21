@@ -42,10 +42,15 @@ publish-release:
 	@test $(PRIVATE_PYPI_PASSWORD) || ( echo "Missing PRIVATE_PYPI_PASSWORD environment variable"; exit 1 )
 
 	$(call notice,Uploading the Python packages to the repository)
-	twine upload --repository-url https://pip.immsuite.cloud dist/$(PACKAGE)-$(version)-*.whl
+	twine upload \
+		--username="$(PRIVATE_PYPI_USERNAME)" \
+		--password="$(PRIVATE_PYPI_PASSWORD)" \
+		--non-interactive \
+		--repository-url \
+		 https://pip.immsuite.cloud dist/$(PACKAGE)-$(version)-*.whl
 
 	$(call notice,Uploading the metadata to the extension store)
-	python scripts/publish.py
+	IMM_STORE_URL="$(IMM_STORE_URL)" IMM_STORE_TOKEN="$(IMM_STORE_TOKEN)" python scripts/publish.py
 
 clean:
 	python setup.py clean
