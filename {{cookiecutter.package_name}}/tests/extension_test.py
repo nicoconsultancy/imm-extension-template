@@ -1,5 +1,3 @@
-from unittest import TestCase
-
 from {{cookiecutter.package_name}}.const import extension
 
 
