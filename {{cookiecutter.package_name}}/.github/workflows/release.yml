@@ -1,3 +1,4 @@
+{% raw %}
 name: Build and upload extension
 
 # This job runs semantic-release on every push to master. If there is a fix: or feat: commit, then semantic-release
@@ -48,3 +49,4 @@ jobs:
           IMM_STORE_URL: ${{ secrets.IMM_STORE_URL }}
           PRIVATE_PYPI_USERNAME: ${{ secrets.PRIVATE_PYPI_USERNAME }}
           PRIVATE_PYPI_PASSWORD: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
+{% endraw %}

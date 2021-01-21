@@ -1,3 +1,4 @@
+{% raw %}
 ---
 name: tests
 
@@ -58,3 +59,4 @@ jobs:
         run: |
           run-inside-environment pip install --user -r requirements-dev.txt
           run-inside-environment pytest -ra ./tests/
+{% endraw %}
