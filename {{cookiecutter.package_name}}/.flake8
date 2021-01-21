@@ -1,12 +1,6 @@
 [flake8]
 max-complexity = 15
-
 exclude = .git,
-    __pycache__,
-    packaging,
-    src/core/imm/core/migrations/*,
-    src/core/imm/core/closuretree/*,
-
 extend-ignore =
     # black: these conflict with black's formatting
     E501, E203, W503,

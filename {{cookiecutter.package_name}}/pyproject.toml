@@ -1,6 +1,6 @@
 [imm-extension]
 name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
-version = "master"
+version = "1.0.0"
 extension = "{{cookiecutter.package_name|replace('_', ' ')}}"
 description = """
 This is the description of your extension that will appear in the Extension Store.
@@ -21,7 +21,7 @@ requires = ["setuptools", "wheel", "cython", "toml"]
 
 
 [tool.black]
-line-length = 120
+line-length = 125
 skip-string-normalization = true
 target-version = ['py38']
 
@@ -31,7 +31,7 @@ skip = ["{{cookiecutter.package_name}}", "README.md", "CHANGELOG.md"]
 
 [tool.isort]
 profile = "black"
-known_first_party = "imm_test"
+known_first_party = "{{cookiecutter.package_name}}"
 known_django = "django"
 sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 line_length = 125
