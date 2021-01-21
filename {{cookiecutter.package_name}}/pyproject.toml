@@ -1,20 +1,7 @@
-[build-system]
-requires = ["setuptools", "wheel", "cython", "toml"]
-
-
-[tool.black]
-line-length = 120
-skip-string-normalization = true
-target-version = ['py38']
-
-
-[tool.cruft]
-skip = ["{{cookiecutter.package_name}}", "README.md", "CHANGELOG.md"]
-
-
 [imm-extension]
 name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
-version = "master"
+version = "1.0.0"
+extension = "{{cookiecutter.package_name|replace('_', ' ')}}"
 description = """
 This is the description of your extension that will appear in the Extension Store.
 """
@@ -27,4 +14,34 @@ include-files = [
     # If your extension does not have any templates or static files, you can remove this
     "templates/**/*.html",
     "static/**/*",
+]
+
+[build-system]
+requires = ["setuptools", "wheel", "cython", "toml"]
+
+
+[tool.black]
+line-length = 125
+skip-string-normalization = true
+target-version = ['py38']
+
+
+[tool.cruft]
+skip = ["{{cookiecutter.package_name}}", "README.md", "CHANGELOG.md"]
+
+[tool.isort]
+profile = "black"
+known_first_party = "{{cookiecutter.package_name}}"
+known_django = "django"
+sections = "FUTURE,STDLIB,DJANGO,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+line_length = 125
+multi_line_output = 3
+force_single_line = "true"
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --nomigrations --ds=imm.settings --disable-warnings"
+testpaths = [
+    "tests",
 ]

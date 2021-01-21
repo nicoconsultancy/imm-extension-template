@@ -1,0 +1,50 @@
+name: Build and upload extension
+
+# This job runs semantic-release on every push to master. If there is a fix: or feat: commit, then semantic-release
+# will build the extension and push it to the registry. It'll also commit the CHANGELOG.md back to the repo.
+
+on:
+  push:
+    branches: master
+
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    strategy:
+      matrix:
+        python: [ 3.8 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+
+      - name: Install dependencies
+        run: npm install semantic-release @semantic-release/changelog @semantic-release/exec @semantic-release/git
+
+      - name: Release
+        run: npx semantic-release
+        env:
+          GIT_AUTHOR_NAME: ${{ secrets.IMM_BOT_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.IMM_BOT_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
+          GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
+          IMM_STORE_TOKEN: ${{ secrets.IMM_STORE_TOKEN }}
+          IMM_STORE_URL: ${{ secrets.IMM_STORE_URL }}
+          PRIVATE_PYPI_USERNAME: ${{ secrets.PRIVATE_PYPI_USERNAME }}
+          PRIVATE_PYPI_PASSWORD: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
