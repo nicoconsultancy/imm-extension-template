@@ -32,7 +32,7 @@ While features/enhancements should be:
 feat/\${ISSUE_NUMBER}-\*\*
 ```
 
-After the issue number, there should be a **short** description of the feature/issue. For example a branch could be `feat/11-cool-feature`. 
+After the issue number, there should be a **short** description of the feature/issue. For example a branch could be `feat/11-cool-feature`.
 
 This way, the system will detect what the next version will be automatically. Additionally, you can manually add the labels `major`, `minor` or `patch` to a pull request in github to determine what the next version will be.
 
@@ -64,7 +64,7 @@ This is setup for linux by default. In order to make this work for Mac, change l
 
 *TODO: Document how the extension works*
 
-### Settings 
+### Settings
 
 *TODO: Document the settings*
 
