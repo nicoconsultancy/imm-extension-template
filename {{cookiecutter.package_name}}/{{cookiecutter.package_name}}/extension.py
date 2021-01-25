@@ -1,5 +1,7 @@
 from django.shortcuts import render
+
 from .const import extension
+
 
 @extension.view(path='/')
 def index(request):

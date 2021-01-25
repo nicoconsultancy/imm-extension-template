@@ -7,7 +7,7 @@ from requests.models import HTTPError
 # [ Read the extension's metadata from pyproject.toml ] --------------------------------------------------------------
 # As setup.py will have already run at this stage, we do not need to run the "safety checks" again
 
-pyproject = toml.load(open("pyproject.toml", "r"))
+pyproject = toml.load(open("pyproject.toml"))
 metadata = pyproject.get("imm-extension", {})
 
 

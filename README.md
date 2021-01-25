@@ -36,7 +36,7 @@ There are a few steps to upgrade an older extension created using `cookiecutter`
 skip = ["imm_??????", "README.md", "CHANGELOG.md", "pyproject.toml"]
 ```
 
-Replace `imm_??????` with the folder name of your extension. 
+Replace `imm_??????` with the folder name of your extension.
 
 Link cruft with this template repository so it knows where to get future updates:
 

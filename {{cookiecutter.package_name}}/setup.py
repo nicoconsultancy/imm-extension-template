@@ -1,11 +1,14 @@
 import os
 import re
 import sys
-from setuptools import setup, find_packages, glob
+
+from setuptools import find_packages
+from setuptools import glob
+from setuptools import setup
 from setuptools.command.build_py import build_py
 
 try:
-    import toml as toml
+    import toml
 except ImportError:
     sys.exit("missing required package: toml")
 
@@ -18,7 +21,7 @@ except ImportError:
 
 # [ Read the extension's metadata from pyproject.toml ] --------------------------------------------------------------
 try:
-    pyproject = toml.load(open('pyproject.toml', 'r'))
+    pyproject = toml.load(open('pyproject.toml'))
 except FileNotFoundError:
     raise
 except toml.TomlDecodeError:
@@ -39,7 +42,7 @@ else:
 # [ Read the extension's dependencies from from requirements.txt ] ---------------------------------------------------
 requirements = []
 if os.path.exists('requirements.txt'):
-    for line in open('requirements.txt', 'r').readlines():
+    for line in open('requirements.txt').readlines():
         line = line.strip()
         if not line or line.startswith("-") or line.startswith("#"):
             # editable package or a comment, skip it
@@ -82,7 +85,7 @@ def get_ext_modules():
 
 
 # [ Don't add the .py files to the build ] ---------------------------------------------------------------------------
-class skip_source_files_build_py(build_py):
+class SkipSourceFilesBuildPy(build_py):
     def run(self):
         # normally this build_py step will include .py files in the distribution
         # we want to skip that step, but we need to run build_package_data so that
@@ -93,20 +96,19 @@ class skip_source_files_build_py(build_py):
         # don't add .py or .c source code files to the build
         banned_file_extensions = ['.py', '.c']
         return super().exclude_data_files(
-            package,
-            src_dir,
-            [f for f in files if os.path.splitext(f)[1] not in banned_file_extensions]
+            package, src_dir, [f for f in files if os.path.splitext(f)[1] not in banned_file_extensions]
         )
 
 
 # [ Collect files to be included in the package ] --------------------------------------------------------------------
+
 
 def get_package_data(folder):
     include_files = []
     for rule in metadata.get('include-files', []):
         for f in glob.glob(os.path.join(folder, rule), recursive=True):
             # strip the package/ prefix from he beginning of the path
-            include_files.append(f[len(folder) + 1:])
+            include_files.append(f[len(folder) + 1 :])
     return {folder: include_files}
 
 
@@ -122,14 +124,12 @@ setup(
     author=metadata.get('vendor'),
     author_email=metadata.get('support'),
     packages=find_packages(),
-    cmdclass={'build_py': skip_source_files_build_py},
+    cmdclass={'build_py': SkipSourceFilesBuildPy},
     ext_modules=get_ext_modules(),
     include_package_data=False,  # don't read MANIFEST.in, use package_data below
     package_data=get_package_data(package),
     entry_points={
-        "imm_extension": [
-            package + " = " + metadata.get('location')  # "{package} = import_path.to.extension:extension"
-        ]
+        "imm_extension": [package + " = " + metadata.get('location')]  # "{package} = import_path.to.extension:extension"
     },
     python_requires=">=3.8, <4",
     install_requires=requirements,
