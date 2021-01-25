@@ -1,4 +1,4 @@
-{% raw %}
+{% raw %}---
 name: Build and upload extension
 
 # This job runs semantic-release on every push to master. If there is a fix: or feat: commit, then semantic-release
