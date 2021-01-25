@@ -21,28 +21,28 @@ except ImportError:
 
 # [ Read the extension's metadata from pyproject.toml ] --------------------------------------------------------------
 try:
-    pyproject = toml.load(open('pyproject.toml'))
+    pyproject = toml.load(open("pyproject.toml"))
 except FileNotFoundError:
     raise
 except toml.TomlDecodeError:
     raise ValueError("Syntax error in pyproject.toml file")
 else:
-    metadata = pyproject.get('imm-extension', {})
+    metadata = pyproject.get("imm-extension", {})
 
-    assert 'name' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: name"
-    assert 'vendor' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: vendor"
-    assert 'url' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: url"
-    assert 'support' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: support"
-    assert 'description' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: description"
-    assert 'location' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: location"
-    assert 'version' in metadata, "pyproject.toml is missing required key from the [imm-extension] section: version"
+    assert "name" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: name"
+    assert "vendor" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: vendor"
+    assert "url" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: url"
+    assert "support" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: support"
+    assert "description" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: description"
+    assert "location" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: location"
+    assert "version" in metadata, "pyproject.toml is missing required key from the [imm-extension] section: version"
 
-    package = metadata.get('location').split(".")[0].lower()  # "imm_sample.ext:ext" -> "imm-sample"
+    package = metadata.get("location").split(".")[0].lower()  # "imm_sample.ext:ext" -> "imm-sample"
 
 # [ Read the extension's dependencies from from requirements.txt ] ---------------------------------------------------
 requirements = []
-if os.path.exists('requirements.txt'):
-    for line in open('requirements.txt').readlines():
+if os.path.exists("requirements.txt"):
+    for line in open("requirements.txt").readlines():
         line = line.strip()
         if not line or line.startswith("-") or line.startswith("#"):
             # editable package or a comment, skip it
@@ -52,7 +52,7 @@ if os.path.exists('requirements.txt'):
 
 # [ Use cython to compile all .py files to .so ] ---------------------------------------------------------------------
 def get_ext_modules():
-    if 'build_ext' not in sys.argv and 'bdist_wheel' not in sys.argv:
+    if "build_ext" not in sys.argv and "bdist_wheel" not in sys.argv:
         # this isn't a binary build, so we dont need to cythonize the source
         return None
 
@@ -65,9 +65,9 @@ def get_ext_modules():
     Options.error_on_unknown_names = True
     Options.error_on_uninitialized = True
     compiler_directives = {
-        'binding': True,  # default in cython 3
-        'language_level': "3",
-        'warn.unreachable': False,
+        "binding": True,  # default in cython 3
+        "language_level": "3",
+        "warn.unreachable": False,
     }
 
     # we need to create an Extension for each source .py file in the project
@@ -75,9 +75,9 @@ def get_ext_modules():
     packages = find_packages()
     source_py_files = []
     for pkg in packages:
-        for source_py in glob.glob(pkg.replace('.', os.sep) + os.sep + '*.py'):
+        for source_py in glob.glob(pkg.replace(".", os.sep) + os.sep + "*.py"):
             module = source_py[:-3]  # strip .py
-            module = module.replace(os.sep, '.')
+            module = module.replace(os.sep, ".")
             extension = Extension(module, [source_py])
             source_py_files.append(extension)
 
@@ -94,7 +94,10 @@ class SkipSourceFilesBuildPy(build_py):
 
     def exclude_data_files(self, package, src_dir, files):
         # don't add .py or .c source code files to the build
-        banned_file_extensions = ['.py', '.c']
+        banned_file_extensions = [
+            ".py",
+            ".c",
+        ]
         return super().exclude_data_files(
             package, src_dir, [f for f in files if os.path.splitext(f)[1] not in banned_file_extensions]
         )
@@ -105,7 +108,7 @@ class SkipSourceFilesBuildPy(build_py):
 
 def get_package_data(folder):
     include_files = []
-    for rule in metadata.get('include-files', []):
+    for rule in metadata.get("include-files", []):
         for f in glob.glob(os.path.join(folder, rule), recursive=True):
             # strip the package/ prefix from he beginning of the path
             include_files.append(f[len(folder) + 1 :])
@@ -117,19 +120,21 @@ def get_package_data(folder):
 
 setup(
     name=re.sub(r"[-_.]+", "-", package),
-    version=os.environ.get('VERSION', metadata.get('version')),  # from VERSION envvar or pyproject.toml
-    description=metadata.get('name'),
-    long_description=metadata.get('description'),
-    url=metadata.get('url'),
-    author=metadata.get('vendor'),
-    author_email=metadata.get('support'),
+    version=metadata.get("version"),
+    description=metadata.get("name"),
+    long_description=metadata.get("description"),
+    url=metadata.get("url"),
+    author=metadata.get("vendor"),
+    author_email=metadata.get("support"),
     packages=find_packages(),
-    cmdclass={'build_py': SkipSourceFilesBuildPy},
+    cmdclass={"build_py": SkipSourceFilesBuildPy},
     ext_modules=get_ext_modules(),
     include_package_data=False,  # don't read MANIFEST.in, use package_data below
     package_data=get_package_data(package),
     entry_points={
-        "imm_extension": [package + " = " + metadata.get('location')]  # "{package} = import_path.to.extension:extension"
+        "imm_extension": [
+            package + " = " + metadata.get("location"),  # "{package} = import_path.to.extension:extension"
+        ]
     },
     python_requires=">=3.8, <4",
     install_requires=requirements,
