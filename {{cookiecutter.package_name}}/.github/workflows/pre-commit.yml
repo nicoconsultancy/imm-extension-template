@@ -1,0 +1,29 @@
+{% raw %}---
+name: pre-commit
+
+on:
+  pull_request:
+
+# This job runs the pre-commit checks. If any of the checks make changes, they will be committed back to
+# the repo by the imm-bot.
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - uses: cdrx/pre-commit-action@release
+        with:
+          token: ${{ secrets.CHANGELOG_TOKEN }}
+          committer_name: ${{ secrets.CHANGELOG_USER }}
+          committer_email: ${{ secrets.CHANGELOG_EMAIL }}
+          commit_prefix: "chore: "
+          commit_message: "apply auto-fixes from the pre-commit checks"
+{% endraw %}
