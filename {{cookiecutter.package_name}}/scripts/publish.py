@@ -1,4 +1,5 @@
 import os
+import sys
 
 import requests
 import toml
@@ -25,7 +26,7 @@ extension_data = {
     "author": metadata.get("vendor"),
     "description": metadata.get("description"),
 }
-
+sys.stdout.write(f"About to upload to {base_url} with extension {extension_data}")
 response = requests.post(
     "{}/api/v1/extensions/store/{}/upload".format(base_url, metadata.get("extension")),
     json=extension_data,
@@ -34,4 +35,6 @@ response = requests.post(
 if not response.ok:
     if response.status_code == 401 or response.status_code == 403:
         raise HTTPError("Unauthorised, check IMM_STORE_TOKEN for extension")
+    elif response.status_code == 400:
+        raise HTTPError(f"Badly formatted request: {response.json()}")
     raise HTTPError(f"Got response {response.status_code} from extension store")
