@@ -16,5 +16,7 @@ extend-ignore =
     SFS301,
     # flake8-return: allow assigning a value to a variable and then returning it
     R504,
+    # flake8-pytest-style
+    PT018, PT009,
     # temporarily disabled:
     A003, F401
