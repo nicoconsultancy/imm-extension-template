@@ -1,6 +1,7 @@
 # extracts the package name from imm-extension.location in pyproject.toml
 PACKAGE = $(shell sed -n 's/.*location *= "*\([^ ]*.*\)/\1/p' ./pyproject.toml | cut -d. -f1)
 EXTENSION = $(shell sed -n 's/.*extension *= "*\([^ ]*.*\)"/\1/p' ./pyproject.toml | cut -d. -f1)
+WORKSPACE = $(shell docker ps -q -f "name=workspace_1")
 
 define notice
       @echo "\n== $1 =="
