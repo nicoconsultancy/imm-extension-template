@@ -7,18 +7,12 @@ define notice
 endef
 
 
-install:
-	@printf "$========== Installing ==========\n"
-	pip install -r requirements-dev.txt
-	pip install -r requirements.txt
-
-uninstall:
-	@printf "$========== Uninstalling ==========\n"
-	pip uninstall $(PACKAGE)
+lint:
+	pre-commit run --all-files
 
 test:
-	@printf "$========== Testing Extension ==========\n"
-	run-inside-environment DATABASE_URL=sqlite://:memory: pytest -x
+	$(call notice,Testing Extension)
+	docker exec -w "/$(EXTENSION)" -e DATABASE_URL="sqlite://:memory:" $(WORKSPACE) pytest -x
 
 bump-version:
 	@test $(version) || ( echo "Missing version argument"; exit 1 )
