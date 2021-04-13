@@ -33,6 +33,7 @@ jobs:
                   imm_mysql_root_password: secret
                   imm_mysql_use_root_account: yes  # the unit tests create a new database, need root access
                   imm_proxy_auto_tls: no  # use a self signed certificate
+                  imm_proxy_redirect_to_fqdn: no  # github runners don't have an fqdn
 
 
       # ---- [ Build the extension ] ----------------------------------------------------------------------------------
