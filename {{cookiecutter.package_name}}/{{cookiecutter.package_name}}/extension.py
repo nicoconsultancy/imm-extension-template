@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .const import extension
+from {{cookiecutter.package_name}}.const import extension
 
 
 @extension.view(path='/')

@@ -1,6 +1,6 @@
 # {{cookiecutter.package_name}}
 
-![Build and upload extension](https://github.com/nicoconsultancy/{{ cookiecutter.package_name|replace("_","-") }}/workflows/Build%20and%20upload%20extension/badge.svg)
+[!Build and upload extension](https://github.com/nicoconsultancy/{{ cookiecutter.package_name|replace("_","-") }}/workflows/Build%20and%20upload%20extension/badge.svg)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 
