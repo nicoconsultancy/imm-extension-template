@@ -1,9 +1,5 @@
 import os
-import subprocess
 import sys
-
-# make sure requests and toml are installed
-subprocess.check_call([sys.executable, "-m", "pip", "install", "requests", "toml"])
 
 import requests  # noqa: E402
 import toml  # noqa: E402
