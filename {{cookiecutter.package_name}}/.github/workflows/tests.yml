@@ -45,7 +45,7 @@ jobs:
       - name: Build the extension
         run: |
           pip install -r requirements-dev.txt
-          make wheel
+          make build
 
 
       # ---- [ Test the extension ] -----------------------------------------------------------------------------------

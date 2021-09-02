@@ -1,17 +1,19 @@
 import os
+import subprocess
 import sys
 
-import requests
-import toml
-from requests.models import HTTPError
+# make sure requests and toml are installed
+subprocess.check_call([sys.executable, "-m", "pip", "install", "requests", "toml"])
+
+import requests  # noqa: E402
+import toml  # noqa: E402
+from requests.models import HTTPError  # noqa: E402
 
 # [ Read the extension's metadata from pyproject.toml ] --------------------------------------------------------------
 # As setup.py will have already run at this stage, we do not need to run the "safety checks" again
 
 pyproject = toml.load(open("pyproject.toml"))
 metadata = pyproject.get("imm-extension", {})
-
-
 base_url = os.environ.get("IMM_STORE_URL")
 
 headers = {

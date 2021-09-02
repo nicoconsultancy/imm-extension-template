@@ -1,7 +1,7 @@
 [imm-extension]
 name = "{{cookiecutter.package_name|replace('_', ' ')|title}}"
 version = "1.0.0"
-extension = "{{cookiecutter.package_name|replace('_', ' ')}}"
+extension = "{{cookiecutter.package_name|replace('_', '-')}}"
 description = """
 This is the description of your extension that will appear in the Extension Store.
 """

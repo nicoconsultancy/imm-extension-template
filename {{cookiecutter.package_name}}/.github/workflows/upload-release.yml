@@ -1,0 +1,41 @@
+{% raw %}---
+name: Build & upload released package
+
+on:
+  release:
+    types:
+      - released
+  workflow_dispatch:
+
+jobs:
+  publish-extension:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    strategy:
+      matrix:
+        python: [ 3.8 ]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Install dependencies
+        run: pip install -r requirements-dev.txt
+
+      - name: Build Python package
+        run: make build
+
+      - name: Upload package to Python package repository
+        run: |
+          twine upload --non-interactive dist/*.whl
+        env:
+          TWINE_REPOSITORY_URL: https://pip.immsuite.cloud
+          TWINE_USERNAME: ${{ secrets.PRIVATE_PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
+
+{% endraw %}
