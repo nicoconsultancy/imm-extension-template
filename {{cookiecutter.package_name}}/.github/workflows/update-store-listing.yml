@@ -1,0 +1,27 @@
+{% raw %}---
+name: Update extension store listing
+
+on:
+  release:
+    types:
+      - released
+  workflow_dispatch:
+
+jobs:
+  update-store-listing:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: pip install toml
+
+      - name: Update the extension listing on the store
+        run: python scripts/add-version-to-store.py
+        env:
+          IMM_STORE_TOKEN: ${{ secrets.IMM_STORE_TOKEN }}
+          IMM_STORE_URL: ${{ secrets.IMM_STORE_URL }}
+
+{% endraw %}

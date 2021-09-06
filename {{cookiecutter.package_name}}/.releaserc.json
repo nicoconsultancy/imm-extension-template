@@ -10,8 +10,7 @@
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "make prepare-release version=${nextRelease.version}",
-        "publishCmd": "make publish-release version=${nextRelease.version}"
+        "prepareCmd": "make set-version-number version=${nextRelease.version}"
       }
     ],
     [
