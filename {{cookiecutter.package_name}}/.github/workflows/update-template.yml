@@ -1,15 +1,15 @@
 {% raw %}
 on:
   schedule:
-    - cron: 0 0 1 * *
+    - cron: "0 7 * * 1,2,3,4,5"
   workflow_dispatch:
 
-name: Update template
+name: Update extension from template
 jobs:
   update-template:
     strategy:
       matrix:
-        python: [3.8]
+        python: [ 3.8 ]
 
     runs-on: ubuntu-latest
 
@@ -18,19 +18,22 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python }}
-      - name: Install dependencies
+
+      - name: Install cruft (and dependencies)
         run: |
-          pip install cruft pre-commit
+          pip install cruft toml pre-commit
+
       - name: Update template
         uses: technote-space/create-pr-action@v2
         with:
           EXECUTE_COMMANDS: |
-            pre-commit run --all-files
-            cruft update -y
-          COMMIT_MESSAGE: "chore: update template"
+            cruft update -y -s
+            cruft diff | git apply
+            pre-commit run --all-files || true
+          COMMIT_MESSAGE: "chore: apply updates from extension template"
           COMMIT_NAME: ${{ secrets.IMM_BOT_NAME }}
           COMMIT_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
-          PR_BRANCH_NAME: "chore/${PR_ID}-update-template"
-          PR_TITLE: "chore: update template"
+          PR_BRANCH_NAME: "chore/update-from-template"
+          PR_TITLE: "chore: apply updates from extension template"
 {% endraw %}
