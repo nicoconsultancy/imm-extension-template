@@ -23,5 +23,4 @@ jobs:
         env:
           IMM_STORE_TOKEN: ${{ secrets.IMM_STORE_TOKEN }}
           IMM_STORE_URL: ${{ secrets.IMM_STORE_URL }}
-
 {% endraw %}

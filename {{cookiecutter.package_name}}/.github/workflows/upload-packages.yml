@@ -37,5 +37,4 @@ jobs:
           TWINE_REPOSITORY_URL: https://pip.immsuite.cloud
           TWINE_USERNAME: ${{ secrets.PRIVATE_PYPI_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.PRIVATE_PYPI_PASSWORD }}
-
 {% endraw %}

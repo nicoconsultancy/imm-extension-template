@@ -36,5 +36,4 @@ jobs:
           GIT_COMMITTER_NAME: ${{ secrets.IMM_BOT_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
-
 {% endraw %}
