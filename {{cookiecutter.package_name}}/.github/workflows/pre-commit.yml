@@ -26,5 +26,4 @@ jobs:
           committer_email: ${{ secrets.CHANGELOG_EMAIL }}
           commit_prefix: "chore: "
           commit_message: "apply auto-fixes from the pre-commit checks"
-
 {% endraw %}

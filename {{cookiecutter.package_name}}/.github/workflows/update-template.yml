@@ -1,0 +1,36 @@
+{% raw %}
+on:
+  schedule:
+    - cron: 0 0 1 * *
+  workflow_dispatch:
+
+name: Update template
+jobs:
+  update-template:
+    strategy:
+      matrix:
+        python: [3.8]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install dependencies
+        run: |
+          pip install cruft pre-commit
+      - name: Update template
+        uses: technote-space/create-pr-action@v2
+        with:
+          EXECUTE_COMMANDS: |
+            pre-commit run --all-files
+            cruft update -y
+          COMMIT_MESSAGE: "chore: update template"
+          COMMIT_NAME: ${{ secrets.IMM_BOT_NAME }}
+          COMMIT_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
+          GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
+          PR_BRANCH_NAME: "chore/${PR_ID}-update-template"
+          PR_TITLE: "chore: update template"
+{% endraw %}
