@@ -34,6 +34,7 @@ jobs:
           COMMIT_NAME: ${{ secrets.IMM_BOT_NAME }}
           COMMIT_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
-          PR_BRANCH_NAME: "chore/update-from-template"
+          PR_BRANCH_PREFIX: "chore/"
+          PR_BRANCH_NAME: "update-from-template"
           PR_TITLE: "chore: apply updates from extension template"
 {% endraw %}
