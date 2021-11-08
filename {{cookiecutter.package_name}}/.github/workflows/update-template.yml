@@ -1,7 +1,7 @@
 {% raw %}
 on:
   schedule:
-    - cron: "0 7 * * 1,2,3,4,5"
+    - cron: "0 7 * * 1"
   workflow_dispatch:
 
 name: Update extension from template
@@ -35,6 +35,6 @@ jobs:
           COMMIT_EMAIL: ${{ secrets.IMM_BOT_EMAIL }}
           GITHUB_TOKEN: ${{ secrets.IMM_BOT_TOKEN }}
           PR_BRANCH_PREFIX: "chore/"
-          PR_BRANCH_NAME: "update-from-template"
+          PR_BRANCH_NAME: "update-template-${PR_ID}"
           PR_TITLE: "chore: apply updates from extension template"
 {% endraw %}
