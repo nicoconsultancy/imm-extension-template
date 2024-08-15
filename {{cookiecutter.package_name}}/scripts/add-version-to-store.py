@@ -1,9 +1,9 @@
 import os
 import sys
 
-import requests  # noqa: E402
-import toml  # noqa: E402
-from requests.models import HTTPError  # noqa: E402
+import requests
+import toml
+from requests.models import HTTPError
 
 # [ Read the extension's metadata from pyproject.toml ] --------------------------------------------------------------
 # As setup.py will have already run at this stage, we do not need to run the "safety checks" again
